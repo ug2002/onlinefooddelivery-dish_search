@@ -7,6 +7,7 @@ pipeline {
         GIT_CREDENTIALS_ID = 'github-credentials'
         SLACK_CHANNEL = '#build-notifications'
         SLACK_CREDENTIALS_ID = 'slack-credentials-id'
+        PYTHON_PATH = 'C:\\Python311'  // Update this to your Python installation path
     }
 
     stages {
@@ -16,6 +17,18 @@ pipeline {
                     echo 'Checking out the source code...'
                     deleteDir()
                     git url: "${REPOSITORY_URL}", credentialsId: "${GIT_CREDENTIALS_ID}", branch: 'main'
+                }
+            }
+        }
+
+        stage('Verify Python') {
+            steps {
+                script {
+                    echo 'Printing Python version...'
+                    bat '"%PYTHON_PATH%\\python.exe" --version'
+
+                    echo 'Printing pip version...'
+                    bat '"%PYTHON_PATH%\\python.exe" -m pip --version'
                 }
             }
         }
@@ -37,14 +50,20 @@ pipeline {
             }
         }
 
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    echo 'Installing dependencies...'
+                    bat '"%PYTHON_PATH%\\python.exe" -m pip install -r requirements.txt'
+                }
+            }
+        }
+
         stage('Test') {
             steps {
                 script {
                     echo 'Running tests...'
-                    bat '''
-                    pip install -r requirements.txt
-                    pytest
-                    '''
+                    bat '"%PYTHON_PATH%\\python.exe" -m pytest'
                 }
             }
         }

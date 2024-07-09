@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  dish-search-service:
+    image: <YOUR_DOCKERHUB_USERNAME>/onlinefooddelivery-dish_search:latest
+    ports:
+      - "31234:5000"
+  order-booking-service:
+    image: <YOUR_DOCKERHUB_USERNAME>/order-booking-service:latest
+    ports:
+      - "31235:5002"
+  order-cancellation-service:
+    image: <YOUR_DOCKERHUB_USERNAME>/order-cancellation-service:latest
+    ports:
+      - "31236:5003"
+  order-status-service:
+    image: <YOUR_DOCKERHUB_USERNAME>/order-status-service:latest
+    ports:
+      - "31237:5001"

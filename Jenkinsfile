@@ -7,7 +7,7 @@ pipeline {
         GIT_CREDENTIALS_ID = 'github-credentials'
         SLACK_CHANNEL = '#build-notifications'
         SLACK_CREDENTIALS_ID = 'slack-credentials-id'
-        PYTHON_PATH = 'C:\\Python311'  // Ensure this path is correct
+        PYTHON_PATH = 'C:\\Python312'  // Updated path
     }
 
     stages {
